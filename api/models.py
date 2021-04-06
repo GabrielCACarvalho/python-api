@@ -61,7 +61,6 @@ class Produto(models.Model):
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     valor_unitario = models.DecimalField(decimal_places=2, max_digits=50)
-    estoque = models.IntegerField()
     quantidade = models.IntegerField()
     promocao = models.ForeignKey(Promocao, on_delete=models.PROTECT)
 
@@ -90,3 +89,8 @@ class Pedido(models.Model):
 
     def __str__(self):
         self.cliente
+
+
+class GerenciamentoEstoque(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    itens_em_estoque = models.IntegerField()
