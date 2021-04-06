@@ -24,7 +24,7 @@ class Cliente(models.Model):
     sexo = models.CharField(max_length=1, choices=SEXO, blank=False, null=False)
     senha = models.CharField(max_length=20)  # TODO: verificar se vai ficar assim
     celular = models.CharField(max_length=11)
-    endereco = Endereco
+    endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT)
     data_cadastro = models.DateField()
 
     def __str__(self):
@@ -58,12 +58,12 @@ class Promocao(models.Model):
 class Produto(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.CharField(max_length=255)
-    marca = Marca
-    categoria = Categoria
+    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     valor_unitario = models.DecimalField(decimal_places=2, max_digits=50)
     estoque = models.IntegerField()
     quantidade = models.IntegerField()
-    promocao = Promocao
+    promocao = models.ForeignKey(Promocao, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.nome
@@ -79,14 +79,14 @@ class Pedido(models.Model):
         ('Entregue', 'O cliente recebeu o pedido.'),
     )
 
-    cliente = Cliente
+    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     data_criacao = models.DateTimeField()
     data_pagamento = models.DateField()
     data_envio = models.DateField()
     forma_pagamento = models.CharField(max_length=100)
     status_pedido = models.CharField(max_length=100, choices=STATUS, blank=False, null=False, default='Solicitado')
     valor_total = models.DecimalField(decimal_places=2, max_digits=50)
-    produto = Produto
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
 
     def __str__(self):
         self.cliente

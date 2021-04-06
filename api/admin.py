@@ -63,8 +63,7 @@ admin.site.register(Produto, Produtos)
 
 
 class Pedidos(admin.ModelAdmin):
-    list_display = (
-    'id', 'cliente', 'data_criacao', 'data_pagamento', 'data_envio', 'forma_pagamento', 'status_pedido', 'valor_total')
+    list_display = ('id', 'cliente', 'data_criacao', 'data_pagamento', 'data_envio', 'forma_pagamento', 'status_pedido','valor_total')
     list_display_links = ('id',)
     search_fields = ('id', 'status_pedido')
     list_per_page = 20
