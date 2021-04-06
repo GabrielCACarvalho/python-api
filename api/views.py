@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.http import JsonResponse
 
-# Create your views here.
+
+def clientes(request):
+    if request.method == 'GET':
+        cliente = {'id': 1, 'nome': 'Guilherme', 'Tem dinheiro?': 'Sim'}
+        return JsonResponse(cliente)
