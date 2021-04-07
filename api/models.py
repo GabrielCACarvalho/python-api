@@ -22,7 +22,6 @@ class Cliente(models.Model):
     cpf = models.CharField(max_length=11)
     email = models.EmailField()
     sexo = models.CharField(max_length=1, choices=SEXO, blank=False, null=False)
-    senha = models.CharField(max_length=20)  # TODO: verificar se vai ficar assim
     celular = models.CharField(max_length=11)
     endereco = models.ForeignKey(Endereco, on_delete=models.PROTECT)
     data_cadastro = models.DateField()
@@ -61,11 +60,19 @@ class Produto(models.Model):
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     valor_unitario = models.DecimalField(decimal_places=2, max_digits=50)
-    quantidade = models.IntegerField()
     promocao = models.ForeignKey(Promocao, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.nome
+
+
+class Item(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    quantidade = models.IntegerField()
+    valor_total = models.DecimalField(decimal_places=2, max_digits=50)
+
+    def __str__(self):
+        return self.produto
 
 
 class Pedido(models.Model):
@@ -85,7 +92,7 @@ class Pedido(models.Model):
     forma_pagamento = models.CharField(max_length=100)
     status_pedido = models.CharField(max_length=100, choices=STATUS, blank=False, null=False, default='Solicitado')
     valor_total = models.DecimalField(decimal_places=2, max_digits=50)
-    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    item = models.ForeignKey(Item, on_delete=models.PROTECT)
 
     def __str__(self):
         self.cliente
@@ -94,3 +101,6 @@ class Pedido(models.Model):
 class GerenciamentoEstoque(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     itens_em_estoque = models.IntegerField()
+
+    def __str__(self):
+        self.produto

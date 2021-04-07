@@ -52,8 +52,18 @@ class Promocoes(admin.ModelAdmin):
 admin.site.register(Promocao, Promocoes)
 
 
+class Itens(admin.ModelAdmin):
+    list_display = ('id', 'produto', 'quantidade', 'valor_total')
+    list_display_links = ('id',)
+    search_fields = ('id',)
+    list_per_page = 20
+
+
+admin.site.register(Item, Itens)
+
+
 class Produtos(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'descricao', 'marca', 'categoria', 'valor_unitario', 'quantidade')
+    list_display = ('id', 'nome', 'descricao', 'marca', 'categoria', 'valor_unitario')
     list_display_links = ('nome',)
     search_fields = ('nome',)
     list_per_page = 20
@@ -75,7 +85,7 @@ admin.site.register(Pedido, Pedidos)
 
 
 class Estoque(admin.ModelAdmin):
-    list_display = ('id', 'produto')
+    list_display = ('id', 'produto', 'itens_em_estoque')
     list_display_links = ('id',)
     search_fields = ('id',)
     list_per_page = 20
