@@ -2,13 +2,6 @@ from rest_framework import viewsets
 from api.models import *
 from api.serializer import *
 
-
-class EnderecoViewSet(viewsets.ModelViewSet):
-    """Exibindo os endereços"""
-    queryset = Endereco.objects.all()
-    serializer_class = EnderecoSerializer
-
-
 class ClienteViewSet(viewsets.ModelViewSet):
     """Exibindo os Clientes"""
     queryset = Cliente.objects.all()

@@ -1,23 +1,20 @@
-"""setup URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from api.views import *
+from rest_framework import routers
 
+
+router = routers.DefaultRouter()
+router.register('clientes', ClienteViewSet, basename='Clientes') # TODO: verificar se tem necessidade de ver todos os pedidos
+router.register('pedidos', PedidoViewSet, basename='Pedidos') # TODO: verificar se tem necessidade de ver todos os clientes
+router.register('estoque', EstoqueViewSet, basename='Estoque')
+router.register('categorias', CategoriaViewSet, basename='Categorias')
+router.register('promocoes', PromocaoViewSet, basename='Promoções')
+router.register('produtos', ProdutoViewSet, basename='Produtos') # TODO: verificar se tem necessidade de ver todos os produtos
+router.register('marcas', MarcaViewSet, basename="Marcas")
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls))
 ]

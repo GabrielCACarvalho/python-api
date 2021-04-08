@@ -27,7 +27,7 @@ class Cliente(models.Model):
     data_cadastro = models.DateField()
 
     def __str__(self):
-        return self.cpf
+        return self.nome
 
 
 class Marca(models.Model):
@@ -62,6 +62,9 @@ class Produto(models.Model):
     valor_unitario = models.DecimalField(decimal_places=2, max_digits=50)
     promocao = models.ForeignKey(Promocao, on_delete=models.PROTECT)
 
+    def get_valor_unitario(self):
+        return self.valor_unitario
+
     def __str__(self):
         return self.nome
 
@@ -69,10 +72,13 @@ class Produto(models.Model):
 class Item(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     quantidade = models.IntegerField()
-    valor_total = models.DecimalField(decimal_places=2, max_digits=50)
+
+    @property
+    def valor_total(self):
+        return self.produto.valor_unitario * self.quantidade
 
     def __str__(self):
-        return self.produto
+        return str(self.quantidade) + "x " + self.produto.nome
 
 
 class Pedido(models.Model):
@@ -91,8 +97,11 @@ class Pedido(models.Model):
     data_envio = models.DateField()
     forma_pagamento = models.CharField(max_length=100)
     status_pedido = models.CharField(max_length=100, choices=STATUS, blank=False, null=False, default='Solicitado')
-    valor_total = models.DecimalField(decimal_places=2, max_digits=50)
     item = models.ForeignKey(Item, on_delete=models.PROTECT)
+
+    @property
+    def valor_total(self):
+        return self.item.valor_total  # TODO: Pensar sobre isso
 
     def __str__(self):
         self.cliente

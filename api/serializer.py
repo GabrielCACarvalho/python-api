@@ -2,15 +2,9 @@ from rest_framework import serializers
 from api.models import *
 
 
-class EnderecoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Endereco
-        fields = ['id', 'estado', 'cidade', 'bairro', 'cep', 'rua', 'numero']
-
-
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Endereco
+        model = Cliente
         fields = ['id', 'nome', 'cpf', 'email', 'sexo', 'celular', 'endereco', 'data_cadastro']
 
 
@@ -38,16 +32,10 @@ class ProdutoSerializer(serializers.ModelSerializer):
         fields = ['nome', 'descricao', 'marca', 'categoria', 'valor_unitario', 'promocao']
 
 
-class ItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
-        fields = ['id', 'produto', 'valor_total']
-
-
 class PedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedido
-        fields = ['id', 'cliente', 'data_cricao', 'data_pagamento', 'data_envio', 'forma_pagamento', 'status_pedido', 'valor_total', 'item']
+        fields = ['id', 'cliente', 'data_criacao', 'data_pagamento', 'data_envio', 'forma_pagamento', 'status_pedido', 'valor_total', 'item']
 
 
 class EstoqueSerializer(serializers.ModelSerializer):
