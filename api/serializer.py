@@ -42,3 +42,57 @@ class EstoqueSerializer(serializers.ModelSerializer):
     class Meta:
         model = GerenciamentoEstoque
         fields = ['id', 'produto', 'itens_em_estoque']
+
+
+class ListaPedidosClienteSerializer(serializers.ModelSerializer):
+    item = serializers.ReadOnlyField(source='item.produto.nome')
+
+    class Meta:
+        model = Pedido
+        fields = ['status_pedido', 'item']
+
+
+class ListaProdutosCategoriaSerializer(serializers.ModelSerializer):
+    marca = serializers.ReadOnlyField(source='marca.nome')
+
+    class Meta:
+        model = Produto
+        fields = ['nome', 'marca']
+
+
+#class ListaPedidosStatusSerializer(serializers.ModelSerializer):
+    #item = serializers.ReadOnlyField(source='item.produto.nome')
+
+    #class Meta:
+        #model = Pedido
+        #fields = ['status_pedido', 'item']
+
+
+class ListaProdutosMarcaSerializer(serializers.ModelSerializer):
+    marca = serializers.ReadOnlyField(source='marca.nome')
+
+    class Meta:
+        model = Produto
+        fields = ['nome', 'marca']
+
+
+class ListaProdutosPromocaoSerializer(serializers.ModelSerializer):
+    promocao = serializers.ReadOnlyField(source='promocao.nome')
+
+    class Meta:
+        model = Produto
+        fields = ['nome', 'promocao']
+
+
+class ListaItensPedidoSerializer(serializers.ModelSerializer):
+    produto = serializers.ReadOnlyField(source='produto.nome')
+
+    class Meta:
+        model = Item
+        fields = ['produto', 'quantidade', 'valor_total']
+
+
+class ListaEnderecosClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Endereco
+        fields = ['estado', 'cidade', 'bairro']
