@@ -104,7 +104,7 @@ class Pedido(models.Model):
         return self.item.valor_total  # TODO: Pensar sobre isso
 
     def __str__(self):
-        self.cliente
+        return str(self.cliente)
 
 
 class GerenciamentoEstoque(models.Model):
