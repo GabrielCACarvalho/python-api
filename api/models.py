@@ -60,7 +60,7 @@ class Produto(models.Model):
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     valor_unitario = models.DecimalField(decimal_places=2, max_digits=50)
-    promocao = models.ForeignKey(Promocao, on_delete=models.PROTECT)
+    promocao = models.ForeignKey(Promocao, on_delete=models.PROTECT, blank=True, null=True)
 
     def get_valor_unitario(self):
         return self.valor_unitario

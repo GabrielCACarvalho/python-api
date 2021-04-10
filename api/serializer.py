@@ -64,8 +64,8 @@ class ListaProdutosCategoriaSerializer(serializers.ModelSerializer):
     #item = serializers.ReadOnlyField(source='item.produto.nome')
 
     #class Meta:
-        #model = Pedido
-        #fields = ['status_pedido', 'item']
+    #    model = Pedido
+    #    fields = ['status_pedido', 'item']
 
 
 class ListaProdutosMarcaSerializer(serializers.ModelSerializer):

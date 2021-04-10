@@ -63,7 +63,7 @@ admin.site.register(Item, Itens)
 
 
 class Produtos(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'descricao', 'marca', 'categoria', 'valor_unitario')
+    list_display = ('id', 'nome', 'descricao', 'marca', 'categoria', 'valor_unitario', 'promocao')
     list_display_links = ('nome',)
     search_fields = ('nome',)
     list_per_page = 20
